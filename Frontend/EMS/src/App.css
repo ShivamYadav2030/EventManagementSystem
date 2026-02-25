@@ -1,0 +1,63 @@
+/* Full screen background */
+.home-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-family: Arial, sans-serif;
+}
+
+/* Glass effect box */
+.overlay {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 50px;
+  border-radius: 20px;
+  /* backdrop-filter: blur(10px); */
+  text-align: center;
+  color: white;
+ 
+}
+
+/* Title styling */
+.title {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+/* Button styling */
+.login-btn {
+  text-decoration: none;
+  background-color: #ffffff;
+  color: #764ba2;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin: 5px;
+}
+
+/* Hover effect */
+.login-btn:hover {
+  background-color: #764ba2;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
