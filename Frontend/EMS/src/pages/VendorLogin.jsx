@@ -1,41 +1,34 @@
 import React, { useState } from "react";
-import axios from "axios";
-import "./VendorLogin.css";   // shared CSS file
+import "./VendorLogin.css"; // shared CSS file (optional)
 
 function VendorLogin() {
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
-        username: form.username,
-        password: form.password,
-        role: "vendor",
-      });
-
-      if (response.data.success) {
-        localStorage.setItem("token", response.data.token);
+    // Demo credentials: username 'vendor', password 'password'
+    setTimeout(() => {
+      if (form.username === "vendor" && form.password === "password") {
+        localStorage.setItem("token", "demo-token-vendor");
         localStorage.setItem("role", "vendor");
         window.location = "/vendor";
+      } else {
+        setError("Invalid demo credentials. Use vendor/password");
       }
-    } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
-    } finally {
       setLoading(false);
-    }
+    }, 300);
   };
 
   return (
     <form className="login-form" onSubmit={handleLogin}>
       <h2>Vendor Login</h2>
       {error && <div className="error-message">{error}</div>}
-      
+
       <input
         type="text"
         required

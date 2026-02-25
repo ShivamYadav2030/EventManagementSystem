@@ -1,41 +1,34 @@
 import React, { useState } from "react";
-import axios from "axios";
-import "./UserLogin.css";   // shared CSS
+import "./UserLogin.css"; // shared CSS (optional)
 
 function UserLogin() {
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
-        username: form.username,
-        password: form.password,
-        role: "user",
-      });
-
-      if (response.data.success) {
-        localStorage.setItem("token", response.data.token);
+    // Demo credentials: username 'user', password 'password'
+    setTimeout(() => {
+      if (form.username === "user" && form.password === "password") {
+        localStorage.setItem("token", "demo-token-user");
         localStorage.setItem("role", "user");
         window.location = "/user";
+      } else {
+        setError("Invalid demo credentials. Use user/password");
       }
-    } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
-    } finally {
       setLoading(false);
-    }
+    }, 300);
   };
 
   return (
     <form className="login-form" onSubmit={handleLogin}>
       <h2>User Login</h2>
       {error && <div className="error-message">{error}</div>}
-      
+
       <input
         type="text"
         required

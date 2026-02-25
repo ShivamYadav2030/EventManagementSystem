@@ -1,41 +1,35 @@
 import React, { useState } from "react";
-import axios from "axios";
-import "../AdminLogin.css";   // import the CSS file
+import "../AdminLogin.css"; // import the CSS file (optional)
 
 function AdminLogin() {
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
-        username: form.username,
-        password: form.password,
-        role: "admin",
-      });
-
-      if (response.data.success) {
-        localStorage.setItem("token", response.data.token);
+    // Demo credentials: username 'admin', password 'password'
+    setTimeout(() => {
+      if (form.username === "admin" && form.password === "password") {
+        // create a fake token for frontend-only flows
+        localStorage.setItem("token", "demo-token-admin");
         localStorage.setItem("role", "admin");
         window.location = "/admin";
+      } else {
+        setError("Invalid demo credentials. Use admin/password");
       }
-    } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
-    } finally {
       setLoading(false);
-    }
+    }, 300);
   };
 
   return (
     <form className="login-form" onSubmit={handleLogin}>
       <h2>Admin Login</h2>
       {error && <div className="error-message">{error}</div>}
-      
+
       <input
         type="text"
         required
